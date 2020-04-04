@@ -5,8 +5,9 @@ from os import listdir
 from os.path import isfile, join
 from PySide2 import QtWidgets, QtGui, QtCore
 from mainwindow import Ui_MainWindow
-from PySide2.QtCore import SIGNAL, QObject
-from PySide2.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QPushButton
+from PySide2.QtCore import SIGNAL, QObject, QRect
+from PySide2.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QPushButton, QWidget, QLabel, \
+    QVBoxLayout
 from PySide2.QtGui import QColor
 
 
@@ -330,6 +331,7 @@ class AnnotationView(QtWidgets.QGraphicsView):
             self.realpathImages.append(self.directory + '/' + filename)
         self.load_image(Instructions.BackItem)
 
+
         QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Right), self,
                             activated=partial(self.load_image, Instructions.NextItem.value))
         QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Left), self,
@@ -402,6 +404,36 @@ class AnnotationView(QtWidgets.QGraphicsView):
             self.centerOn(self.scene().image_item)
 
 
+class CreateButtons(QWidget):
+    def __init__(self, parent=None):
+        super(CreateButtons, self).__init__(parent)
+
+        # self.widget = QWidget()
+        # self.widget.setObjectName(u"widget")
+        # self.widget.setGeometry(QRect(450, 140, 120, 80))
+        # self.widget_2 = QWidget(self.centralwidget)
+        # self.widget_2.setObjectName(u"widget_2")
+        self.setGeometry(QRect(630, 100, 171, 271))
+        self.button1 = QPushButton(self)
+        self.button1.setObjectName(u"button1")
+        self.button1.setText('Button1')
+        self.button1.setGeometry(QRect(30, 20, 112, 32))
+        self.button2 = QPushButton(self)
+        self.button2.setObjectName(u"button2")
+        self.button2.setText('Button2')
+        self.button2.setGeometry(QRect(30, 60, 112, 32))
+        self.button3 = QPushButton(self)
+        self.button3.setObjectName(u"button3")
+        self.button3.setText('Button3')
+        self.button3.setGeometry(QRect(30, 100, 112, 32))
+        self.pushButton_4 = QPushButton(self)
+        self.pushButton_4.setObjectName(u"pushButton_4")
+        self.pushButton_4.setText('Button4')
+        self.pushButton_4.setGeometry(QRect(30, 140, 112, 32))
+
+
+
+
 class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, parent=None):
@@ -419,6 +451,9 @@ if __name__ == '__main__':
     test = AnnotationView(w)
     test.show()
     test.resize(640, 480)
+    buttons = CreateButtons(w)
+    buttons.show()
     # w.resize(640, 480)
     w.show()
+    # test.show()
     sys.exit(app.exec_())
